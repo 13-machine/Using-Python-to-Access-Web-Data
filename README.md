@@ -1,2 +1,2 @@
 # Using-Python-to-Access-Web-Data
-Following Links in HTML Using BeautifulSoup
+This is a file recording the key exercises shown in the University of Michigan Python Coursera courses.
