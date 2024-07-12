@@ -1,0 +1,42 @@
+# Import modules and ignore SSL certificate errors
+import urllib.request
+from bs4 import BeautifulSoup
+import ssl
+
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+# Function definition
+def retrieve_last_name(url, count, position):
+    # Visit the starting URL and process links
+    for _ in range(count):
+        # Fetch the web page content
+        html = urllib.request.urlopen(url, context=ctx).read()
+        soup = BeautifulSoup(html, 'html.parser')
+
+        # Find all 'a' tags
+        tags = soup.find_all('a')
+
+        # Ensure the specified position link exists
+        if position <= len(tags):
+            # Get the link at the specified position
+            url = tags[position - 1].get('href', None)
+            # Python lists are 0-indexed, so to get the 3rd element, use position - 1
+            print(f"Retrieving: {url}")
+        else:
+            print("Position out of range.")
+            return None
+
+    # Return the last page's name (extracted from the URL)
+    return url.split('_')[-1].split('.')[0]
+
+# Program entry point
+if __name__ == "__main__":
+    url = input('Enter URL: ')
+    count = int(input('Enter count: '))
+    position = int(input('Enter position: '))
+
+    last_name = retrieve_last_name(url, count, position)
+    if last_name:
+        print(f"The answer is: {last_name}")
