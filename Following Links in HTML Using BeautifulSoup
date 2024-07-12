@@ -32,11 +32,11 @@ def retrieve_last_name(url, count, position):
     return url.split('_')[-1].split('.')[0]
 
 # Program entry point
-if __name__ == "__main__":
+if __name__ == "__main__": # This step is used to check if the script is run directly (not imported as a module).
     url = input('Enter URL: ')
     count = int(input('Enter count: '))
     position = int(input('Enter position: '))
 
     last_name = retrieve_last_name(url, count, position)
     if last_name:
-        print(f"The answer is: {last_name}")
+        print(f"The answer is: {last_name}") # Print the last name if it is successfully retrieved.
